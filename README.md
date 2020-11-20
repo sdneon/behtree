@@ -16,7 +16,7 @@ This is kind of a fork of [Calamari's BehaviorTree.js](https://github.com/Calama
   * Thus here it's wrapped in a ES module named `behtree'.
     * Why? Cos when trying various ways to use BehaviorTree's src directly using the [Node.Js example](https://github.com/Calamari/BehaviorTree.js-Examples/blob/master/nodejs/example.js), got a variety of pesky, seemingly impossible-to-solve errors.
   * The sample app scripts demonstrate how to use `behtree`, from 'parking' BehaviorTree exports in the `process` namespace, as `process.BehaviorTree` to using `import()` and passing the returned `module` around.
-  * `behtree`'s package.json has been reduced to a minimal while trying to get this solution working - cos not so familiar with use of ES module in Node.JS. For the original contributions and details, refer to the original package.json of BehaviorTree.
+  * `behtree`'s package.json has been reduced to a minimum while trying to get this solution working - cos not so familiar with use of ES module in Node.JS. For the original contributions and details, refer to the original package.json of BehaviorTree.
 * allow use of the (unbundled) source files in ` src/` folder directly, instead of the bundled (minified) release in `dist/` folder.
   * to make it easier to make *experimental* changes
   * cos can't seem to get the **webpack bundling** to work correctly, owing to weird errors encountered with npm, webpack and babel.
@@ -24,15 +24,26 @@ This is kind of a fork of [Calamari's BehaviorTree.js](https://github.com/Calama
 ### Changes
 
 Just a list of changes (often nonsensical; whatever I happen to still remember) to get things working, and to take note of.
-* Explicitly specify '.js' file extension `import ... from './filename.js'` in every file! O.w. esm loader chokes - something about not being able to find `filename` as it doesn't seem to add 'js' extension itself!?
-* Explicitly add `export { ClassName };` at end of each file for the default export i.e. ClassName, despite the file already having a `export default class ClassName ...` declaration. O.w. index.mjs will get an error of no such export!? 
+* Explicitly specify '.js' file extension in `import ... from './filename.js'` statements in every file! O.w. esm loader chokes - something about not being able to find `filename` as it doesn't seem to add 'js' extension itself!?
+* Explicitly add `export { ClassName };` statement at end of each file for the default export i.e. ClassName, despite the file already having a `export default class ClassName ...` declaration. O.w. index.mjs will get an error of no such export!?
 * Sample app scripts `bt1.js` and `bt2.js` are in `/samples` folder.
   * E.g: To run: `node node_modules/behtree/samples/bt1.js`
   * The sample is modified from [Calamari's Node.JS sample](https://github.com/Calamari/BehaviorTree.js-Examples/blob/master/nodejs/example.js). 
   * The difference between bt1 and bt2 is mainly how they pass the BehaviorTree namespace to where it's needed.
   * `/samples/bt1.js`: pass the returned BehaviorTree `module`.
   * `/samples/bt2.js`: park BehaviorTree as `process.BehaviorTree`.
-  
+    * `import()` is async, so take care when trying to use `process.BehaviorTree` - make sure it is already populated!
+
+## Alternate Track: Bundling
+Just ranting here, move along...
+* Had to use the latest npm to install webpack, etc. Somehow the old npm 'errors out'. However this new npm has some pesky quirks:
+  * It keeps deleting itself!? after installing each (other) module.
+  * It likes the flat structure and dumps all dependencies at <nodejs>/node_modules in a huge mess. the `--legacy-bundling` options does not seem to work consistently. Neither does setting it beforehand using `npm set legacy-bundling=true'.
+  * PS: nested dependencies folder struture is desireable at times when the installed module is intended to be archived or taken offline for usage in a complete package.
+    * Perhaps can try [npmbox](https://github.com/arei/npmbox) next.
+* webpack and babel - simply can't get the combo installed and running properly to bundle BehaviorTree, owing mostly to babel problems I guess. Or as some suspect, webpack is not loading babel correctly.
+  * Error is something about no suitable loader to churn the codes. With unexpected syntax errors complaining about ES syntax like `type = `, etc.
+
 ## Features
 
 * The needed: Sequences, Selectors, Tasks
