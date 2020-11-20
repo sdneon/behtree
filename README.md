@@ -2,6 +2,13 @@
 
 A JavaScript implementation of Behavior Trees. They are useful for implementing AIs. If you need more information about Behavior Trees, look on [GameDevAI](http://aigamedev.com), there is a nice [video about Behavior Trees from Alex Champandard](http://aigamedev.com/open/article/behavior-trees-part1/). There is also a nice read of [Björn Knafla](http://www.altdevblogaday.com/author/bjoern-knafla/) explaining how [explaining how Behavior Trees work](http://www.altdevblogaday.com/2011/02/24/introduction-to-behavior-trees/).
 
+
+## Oops
+
+These source files should have been put in a `behtree` folder =P
+...and ultimately in your <nodejs>/node_modules folder.
+**Usage**: see any of the samples like `/samples/bt1.js`.
+
 ## Mod
 This is kind of a fork of [Calamari's BehaviorTree.js](https://github.com/Calamari/BehaviorTree.js) to:
 * make it work in a CommonJS environment in Node.JS 15.x (and 14.x).
@@ -20,7 +27,7 @@ Just a list of changes (often nonsensical; whatever I happen to still remember) 
 * Explicitly specify '.js' file extension `import ... from './filename.js'` in every file! O.w. esm loader chokes - something about not being able to find `filename` as it doesn't seem to add 'js' extension itself!?
 * Explicitly add `export { ClassName };` at end of each file for the default export i.e. ClassName, despite the file already having a `export default class ClassName ...` declaration. O.w. index.mjs will get an error of no such export!? 
 * Sample app scripts `bt1.js` and `bt2.js` are in `/samples` folder.
-  * E.g: To run: `node node_modules/behtree/samples/bt1.js'
+  * E.g: To run: `node node_modules/behtree/samples/bt1.js`
   * The sample is modified from [Calamari's Node.JS sample](https://github.com/Calamari/BehaviorTree.js-Examples/blob/master/nodejs/example.js). 
   * The difference between bt1 and bt2 is mainly how they pass the BehaviorTree namespace to where it's needed.
   * `/samples/bt1.js`: pass the returned BehaviorTree `module`.
