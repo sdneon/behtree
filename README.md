@@ -6,7 +6,8 @@ A JavaScript implementation of Behavior Trees. They are useful for implementing 
 This is kind of a fork of [Calamari's BehaviorTree.js](https://github.com/Calamari/BehaviorTree.js) to:
 * make it work in a CommonJS environment in Node.JS 15.x (and 14.x).
   * [Node.JS support of ES modules](https://nodejs.org/api/esm.html) is still limited and complicated. Interactions with CommonJS modules are finicky. And attempt to use [John-David Dalton's esm](https://github.com/standard-things/esm) to 'fast load' BehaviorTree failed.
-  * Thus here it's wrapped in a CommonJS module named `behtree'.
+  * Thus here it's wrapped in a ES module named `behtree'.
+    * Why? Cos when trying various ways to use BehaviorTree's src directly using the [Node.Js example](https://github.com/Calamari/BehaviorTree.js-Examples/blob/master/nodejs/example.js), got a variety of pesky, seemingly impossible-to-solve errors.
   * The sample app scripts demonstrate how to use `behtree`, from 'parking' BehaviorTree exports in the `process` namespace, as `process.BehaviorTree` to using `import()` and passing the returned `module` around.
   * `behtree`'s package.json has been reduced to a minimal while trying to get this solution working - cos not so familiar with use of ES module in Node.JS. For the original contributions and details, refer to the original package.json of BehaviorTree.
 * allow use of the (unbundled) source files in ` src/` folder directly, instead of the bundled (minified) release in `dist/` folder.
